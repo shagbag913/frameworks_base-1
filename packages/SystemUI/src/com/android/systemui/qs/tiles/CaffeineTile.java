@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
@@ -112,10 +113,17 @@ public class CaffeineTile extends QSTileImpl<BooleanState> {
                 }
             }
         } else {
+            boolean showTitles = Settings.System.getIntForUser(
+                    mContext.getContentResolver(), Settings.System.QS_TILE_TITLE_VISIBILITY, 1,
+                    UserHandle.USER_CURRENT) == 1;
             // toggle
             if (mWakeLock.isHeld()) {
                 mWakeLock.release();
                 stopCountDown();
+            } else if (!showTitles) { // if QS titles are disabled, default to infinity
+                mWakeLock.acquire();
+                mDuration = DURATIONS.length - 1;
+                startCountDown(DURATIONS[mDuration]);
             } else {
                 mWakeLock.acquire();
                 mDuration = 0;
