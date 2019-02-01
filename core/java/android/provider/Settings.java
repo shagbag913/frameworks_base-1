@@ -4207,6 +4207,20 @@ public final class Settings {
         private static final Validator TORCH_LONG_PRESS_POWER_TIMEOUT_VALIDATOR =
                 NON_NEGATIVE_INTEGER_VALIDATOR;
 
+         /**
+         * Whether to enable DOZE only when charging
+         * @hide
+         */
+        public static final String DOZE_ON_CHARGE = "doze_on_charge";
+
+        private static final Validator DOZE_ON_CHARGE_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * hidden stting of the current atate of DOZE only when charging
+         * @hide
+         */
+        public static final String DOZE_ON_CHARGE_NOW = "doze_on_charge_now";
+
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
@@ -4276,7 +4290,8 @@ public final class Settings {
             SMART_PIXELS_SHIFT_TIMEOUT,
             SMART_PIXELS_ON_POWER_SAVE,
             TORCH_LONG_PRESS_POWER_GESTURE,
-            TORCH_LONG_PRESS_POWER_TIMEOUT
+            TORCH_LONG_PRESS_POWER_TIMEOUT,
+            DOZE_ON_CHARGE
         };
 
         /**
@@ -4498,6 +4513,7 @@ public final class Settings {
             VALIDATORS.put(SMART_PIXELS_ON_POWER_SAVE, SMART_PIXELS_ON_POWER_SAVE_VALIDATOR);
             VALIDATORS.put(TORCH_LONG_PRESS_POWER_GESTURE, TORCH_LONG_PRESS_POWER_GESTURE_VALIDATOR);
             VALIDATORS.put(TORCH_LONG_PRESS_POWER_TIMEOUT, TORCH_LONG_PRESS_POWER_TIMEOUT_VALIDATOR);
+            VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
         }
 
         /**
