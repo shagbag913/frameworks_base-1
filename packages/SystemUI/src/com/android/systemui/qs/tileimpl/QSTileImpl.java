@@ -31,6 +31,7 @@ import android.metrics.LogMaker;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.Vibrator;
 import android.service.quicksettings.Tile;
 import android.text.format.DateUtils;
 import android.util.ArraySet;
@@ -93,6 +94,8 @@ public abstract class QSTileImpl<TState extends State> implements QSTile {
 
     abstract protected void handleUpdateState(TState state, Object arg);
 
+    protected Vibrator mVibrator;
+
     /**
      * Declare the category of this tile.
      *
@@ -104,6 +107,7 @@ public abstract class QSTileImpl<TState extends State> implements QSTile {
     protected QSTileImpl(QSHost host) {
         mHost = host;
         mContext = host.getContext();
+        mVibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     /**
@@ -158,6 +162,12 @@ public abstract class QSTileImpl<TState extends State> implements QSTile {
 
     // safe to call from any thread
 
+    public void vibrateTile(int duration) {
+        if (mVibrator != null) {
+            if (mVibrator.hasVibrator()) { mVibrator.vibrate(duration); }
+        }
+    }
+
     public void addCallback(Callback callback) {
         mHandler.obtainMessage(H.ADD_CALLBACK, callback).sendToTarget();
     }
@@ -173,11 +183,13 @@ public abstract class QSTileImpl<TState extends State> implements QSTile {
     public void click() {
         mMetricsLogger.write(populate(new LogMaker(ACTION_QS_CLICK).setType(TYPE_ACTION)));
         mHandler.sendEmptyMessage(H.CLICK);
+        vibrateTile(45);
     }
 
     public void secondaryClick() {
         mMetricsLogger.write(populate(new LogMaker(ACTION_QS_SECONDARY_CLICK).setType(TYPE_ACTION)));
         mHandler.sendEmptyMessage(H.SECONDARY_CLICK);
+        vibrateTile(45);
     }
 
     public void longClick() {
