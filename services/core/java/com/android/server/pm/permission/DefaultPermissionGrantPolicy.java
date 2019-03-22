@@ -957,6 +957,12 @@ public final class DefaultPermissionGrantPolicy {
             grantRuntimePermissions(chromiumPackage, STORAGE_PERMISSIONS, userId);
         }
 
+        // Lawnchair launcher
+        PackageParser.Package lawnchairPackage = getSystemPackage("ch.deletescape.lawnchair.ci");
+        if (lawnchairPackage != null) {
+            grantRuntimePermissions(lawnchairPackage, STORAGE_PERMISSIONS, true, userId);
+        }
+
         if (mPermissionGrantedCallback != null) {
             mPermissionGrantedCallback.onDefaultRuntimePermissionsGranted(userId);
         }
