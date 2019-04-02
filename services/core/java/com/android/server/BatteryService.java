@@ -1107,28 +1107,21 @@ public final class BatteryService extends SystemService {
         public void updateLightsLocked() {
             final int level = mHealthInfo.batteryLevel;
             final int status = mHealthInfo.batteryStatus;
-            if (!mBatteryLightEnabled) {
-                mBatteryLight.turnOff();
-            } else if (level < mLowBatteryWarningLevel) {
-                if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
-                    // Solid red when battery is charging
+            if ((status == BatteryManager.BATTERY_STATUS_CHARGING
+                    || status == BatteryManager.BATTERY_STATUS_FULL)
+                    && mBatteryLightEnabled) {
+                if (level < mLowBatteryWarningLevel) {
+                    // Solid red when low and charging
                     mBatteryLight.setColor(mBatteryLowARGB);
-                } else {
-                    // Flash red when battery is low and not charging
-                    mBatteryLight.setFlashing(mBatteryLowARGB, Light.LIGHT_FLASH_TIMED,
-                            mBatteryLedOn, mBatteryLedOff);
-                }
-            } else if (status == BatteryManager.BATTERY_STATUS_CHARGING
-                    || status == BatteryManager.BATTERY_STATUS_FULL) {
-                if (status == BatteryManager.BATTERY_STATUS_FULL || level >= 90) {
-                    // Solid green when full or charging and nearly full
+                } else if (level >= 90) {
+                    // Solid green when nearly full and charging
                     mBatteryLight.setColor(mBatteryFullARGB);
                 } else {
                     // Solid orange when charging and halfway full
                     mBatteryLight.setColor(mBatteryMediumARGB);
                 }
             } else {
-                // No lights if not charging and not low
+                // Not charging or battery light disabled, turn off LED
                 mBatteryLight.turnOff();
             }
         }
