@@ -3849,17 +3849,29 @@ public final class Settings {
          */
         public static final String SMART_PIXELS_PATTERN = "smart_pixels_pattern";
 
+        /** @hide */
+        public static final Validator SMART_PIXELS_PATTERN_VALIDATOR =
+                NON_NEGATIVE_INTEGER_VALIDATOR;
+
         /**
          * Smart Pixels Shift Timeout
          * @hide
          */
         public static final String SMART_PIXELS_SHIFT_TIMEOUT = "smart_pixels_shift_timeout";
 
+        /** @hide */
+        public static final Validator SMART_PIXELS_SHIFT_TIMEOUT_VALIDATOR =
+                NON_NEGATIVE_INTEGER_VALIDATOR;
+
         /**
          * Whether Smart Pixels should enable on power saver mode
          * @hide
          */
         public static final String SMART_PIXELS_ON_POWER_SAVE = "smart_pixels_on_power_save";
+
+        /** @hide */
+        public static final Validator SMART_PIXELS_ON_POWER_SAVE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
         /**
          * Whether the notification LED should repeatedly flash when a notification is
@@ -4240,6 +4252,9 @@ public final class Settings {
             QS_TILE_TITLE_VISIBILITY,
             QS_LAYOUT_ROWS,
             QS_LAYOUT_ROWS_LANDSCAPE,
+            SMART_PIXELS_PATTERN,
+            SMART_PIXELS_SHIFT_TIMEOUT,
+            SMART_PIXELS_ON_POWER_SAVE,
         };
 
         /**
@@ -4456,6 +4471,9 @@ public final class Settings {
             VALIDATORS.put(QS_TILE_TITLE_VISIBILITY, QS_TILE_TITLE_VISIBILITY_VALIDATOR);
             VALIDATORS.put(QS_LAYOUT_ROWS, QS_LAYOUT_ROWS_VALIDATOR);
             VALIDATORS.put(QS_LAYOUT_ROWS_LANDSCAPE, QS_LAYOUT_ROWS_LANDSCAPE_VALIDATOR);
+            VALIDATORS.put(SMART_PIXELS_PATTERN, SMART_PIXELS_PATTERN_VALIDATOR);
+            VALIDATORS.put(SMART_PIXELS_SHIFT_TIMEOUT, SMART_PIXELS_SHIFT_TIMEOUT_VALIDATOR);
+            VALIDATORS.put(SMART_PIXELS_ON_POWER_SAVE, SMART_PIXELS_ON_POWER_SAVE_VALIDATOR);
         }
 
         /**
