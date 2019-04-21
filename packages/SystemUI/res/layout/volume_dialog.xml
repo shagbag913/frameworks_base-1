@@ -89,6 +89,7 @@
                     android:id="@+id/expandable_indicator"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:rotation="90"
                     android:clipToPadding="false"
                     android:clickable="true"
                     android:focusable="true"
