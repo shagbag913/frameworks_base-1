@@ -912,9 +912,7 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
                 brightness = Math.max(Math.min(brightness - SCREEN_DIM_MINIMUM_REDUCTION,
                         mScreenBrightnessDimConfig), mScreenBrightnessRangeMinimum);
             }
-            if (!mAppliedDimming) {
-                slowChange = false;
-            }
+            slowChange = true;
             mAppliedDimming = true;
         } else if (mAppliedDimming) {
             slowChange = false;
