@@ -24,6 +24,7 @@ import static com.android.internal.logging.nano.MetricsProto.MetricsEvent.TYPE_A
 import static com.android.settingslib.RestrictedLockUtils.EnforcedAdmin;
 
 import android.app.ActivityManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -31,7 +32,9 @@ import android.metrics.LogMaker;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.os.UserHandle;
 import android.os.Vibrator;
+import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.text.format.DateUtils;
 import android.util.ArraySet;
@@ -163,8 +166,13 @@ public abstract class QSTileImpl<TState extends State> implements QSTile {
     // safe to call from any thread
 
     public void vibrateTile(int duration) {
+        boolean hapticFeedbackEnabled = Settings.System.getIntForUser(
+                mContext.getContentResolver(), Settings.System.HAPTIC_FEEDBACK_ENABLED,
+                1, UserHandle.USER_CURRENT) != 0;
         if (mVibrator != null) {
-            if (mVibrator.hasVibrator()) { mVibrator.vibrate(duration); }
+            if (mVibrator.hasVibrator() && hapticFeedbackEnabled) {
+                mVibrator.vibrate(duration);
+            }
         }
     }
 
