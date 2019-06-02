@@ -7564,6 +7564,16 @@ public final class Settings {
         private static final Validator DOUBLE_TAP_TO_WAKE_VALIDATOR = BOOLEAN_VALIDATOR;
 
         /**
+         * Controls whether ambient gestures wake the screen or enter ambient display.
+         * @hide
+         */
+        public static final String WAKEUP_SCREEN_GESTURE = "wakeup_screen_gesture";
+
+        /** @hide */
+        private static final Validator WAKEUP_SCREEN_GESTURE_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * The current assistant component. It could be a voice interaction service,
          * or an activity that handles ACTION_ASSIST, or empty which means using the default
          * handling.
@@ -8106,6 +8116,7 @@ public final class Settings {
             SLEEP_TIMEOUT,
             DOUBLE_TAP_TO_WAKE,
             WAKE_GESTURE_ENABLED,
+            WAKEUP_SCREEN_GESTURE,
             LONG_PRESS_TIMEOUT,
             CAMERA_GESTURE_DISABLED,
             ACCESSIBILITY_AUTOCLICK_ENABLED,
@@ -8234,6 +8245,7 @@ public final class Settings {
             VALIDATORS.put(SLEEP_TIMEOUT, SLEEP_TIMEOUT_VALIDATOR);
             VALIDATORS.put(DOUBLE_TAP_TO_WAKE, DOUBLE_TAP_TO_WAKE_VALIDATOR);
             VALIDATORS.put(WAKE_GESTURE_ENABLED, WAKE_GESTURE_ENABLED_VALIDATOR);
+            VALIDATORS.put(WAKEUP_SCREEN_GESTURE, WAKEUP_SCREEN_GESTURE_VALIDATOR);
             VALIDATORS.put(LONG_PRESS_TIMEOUT, LONG_PRESS_TIMEOUT_VALIDATOR);
             VALIDATORS.put(CAMERA_GESTURE_DISABLED, CAMERA_GESTURE_DISABLED_VALIDATOR);
             VALIDATORS.put(ACCESSIBILITY_AUTOCLICK_ENABLED,

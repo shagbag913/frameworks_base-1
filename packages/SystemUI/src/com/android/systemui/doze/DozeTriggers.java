@@ -30,6 +30,7 @@ import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.UserHandle;
+import android.provider.Settings;
 import android.text.format.Formatter;
 import android.util.Log;
 
@@ -128,6 +129,9 @@ public class DozeTriggers implements DozeMachine.Part {
         boolean isDoubleTap = pulseReason == DozeLog.PULSE_REASON_SENSOR_DOUBLE_TAP;
         boolean isPickup = pulseReason == DozeLog.PULSE_REASON_SENSOR_PICKUP;
         boolean isLongPress = pulseReason == DozeLog.PULSE_REASON_SENSOR_LONG_PRESS;
+        boolean isWakeupScreen = Settings.Secure.getInt(
+                mContext.getContentResolver(), Settings.Secure.WAKEUP_SCREEN_GESTURE,
+                0) == 1;
 
         if (mConfig.alwaysOnEnabled(UserHandle.USER_CURRENT) && !isLongPress) {
             proximityCheckThenCall((result) -> {
@@ -138,11 +142,15 @@ public class DozeTriggers implements DozeMachine.Part {
                 if (isDoubleTap) {
                     mDozeHost.onDoubleTap(screenX, screenY);
                     mMachine.wakeUp();
+                } else if (isWakeupScreen) {
+                    mMachine.wakeUp();
                 } else {
                     mDozeHost.extendPulse();
                 }
             }, sensorPerformedProxCheck, pulseReason);
             return;
+        } else if (isWakeupScreen) {
+            mMachine.wakeUp();
         } else {
             requestPulse(pulseReason, sensorPerformedProxCheck);
         }
