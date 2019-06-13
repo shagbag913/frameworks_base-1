@@ -69,7 +69,7 @@ public class AmbientDisplayConfiguration {
     }
 
     public boolean pulseOnPickupCanBeModified(int user) {
-        return !alwaysOnEnabled(user);
+        return !alwaysOnEnabledSetting(user);
     }
 
     public boolean pulseOnDoubleTapEnabled(int user) {
