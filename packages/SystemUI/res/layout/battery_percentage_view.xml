@@ -23,6 +23,7 @@
         android:layout_height="match_parent"
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Clock"
+        android:fontFamily="@*android:string/config_headlineFontFamilyMedium"
         android:textColor="?android:attr/textColorPrimary"
         android:gravity="center_vertical|start"
         android:paddingStart="@dimen/battery_level_padding_start"
